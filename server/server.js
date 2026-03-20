@@ -17,7 +17,7 @@ connectDB();
 const app = express();
 
 // Security Middleware
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(mongoSanitize());
 
 // Rate limiting

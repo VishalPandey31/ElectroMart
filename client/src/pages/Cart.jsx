@@ -16,7 +16,7 @@ export default function Cart() {
   const [appliedCoupon, setAppliedCoupon] = useState(null)
   const [couponErr, setCouponErr] = useState('')
 
-  const items = cart || []
+  const items = cart?.items || []
   const subtotal = items.reduce((a, i) => a + (i.discountPrice || i.price) * i.quantity, 0)
   const savings = items.reduce((a, i) => a + ((i.price - (i.discountPrice || i.price)) * i.quantity), 0)
   const freeDeliveryThreshold = 999
