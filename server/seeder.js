@@ -151,6 +151,26 @@ async function seed() {
   await mongoose.connect(process.env.MONGO_URI);
   console.log('🔗 Connected to MongoDB');
 
+  // Load User model
+  const User = require('./models/User');
+
+  // Create Demo Admin if not exists
+  const adminEmail = 'admin@electromart.in';
+  const existingAdmin = await User.findOne({ email: adminEmail });
+  if (!existingAdmin) {
+    console.log('👷 Creating Demo Admin...');
+    await User.create({
+      name: 'ElectroMart Admin',
+      email: adminEmail,
+      password: 'Admin@123',
+      role: 'admin',
+      phone: '9999999999'
+    });
+    console.log('✅ Demo Admin created successfully!');
+  } else {
+    console.log('ℹ️ Demo Admin already exists.');
+  }
+
   await Product.deleteMany({});
   await Category.deleteMany({});
   console.log('🗑️  Database Cleaned');
@@ -162,6 +182,7 @@ async function seed() {
   }
 
   let totalSaved = 0;
+  let index = 0;
   for (const [slug, catId] of Object.entries(catMap)) {
     console.log(`🚀 Seeding Category: ${slug}`);
     const products = makeProducts(slug, catId);
@@ -170,11 +191,16 @@ async function seed() {
         index++;
         await new Product(p).save();
         totalSaved++;
-      } catch (e) { }
+        if (totalSaved % 50 === 0) console.log(`✅ Progress: ${totalSaved} products saved...`);
+      } catch (e) {
+        console.error(`❌ Error saving ${p.name}:`, e.message);
+      }
     }
   }
 
-  console.log(`\n🎉 SEEDING DONE! ${totalSaved} UNIQUE PRODUCTS WITH 50 DISTINCT PHOTOS.`);
+  console.log(`\n🎉 SEEDING DONE! ${totalSaved} UNIQUE PRODUCTS.`);
+  await mongoose.disconnect();
+  console.log('🔌 Disconnected from MongoDB');
   process.exit(0);
 }
 
