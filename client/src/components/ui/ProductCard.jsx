@@ -12,7 +12,7 @@ export default function ProductCard({ product }) {
 
   if (!product) return null
 
-  const { _id, name, slug, price, discountPrice, images, rating, numReviews, stock, brand, isFeatured, isNew } = product
+  const { _id, name, slug, price, discountPrice, images, rating, numReviews, stock, brand, isFeatured, isNewProduct } = product
   const finalPrice = discountPrice > 0 ? discountPrice : price
   const discount = discountPrice > 0 ? Math.round(((price - discountPrice) / price) * 100) : 0
   const inWishlist = wishlist?.includes(_id)
@@ -91,7 +91,7 @@ export default function ProductCard({ product }) {
 
           {/* Badges */}
           <div style={{ display: 'flex', gap: 4, marginTop: 4 }}>
-            {isNew && <span style={{ background: '#f1f3f6', color: '#212429', fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 2 }}>New Arrival</span>}
+            {isNewProduct && <span style={{ background: '#f1f3f6', color: '#212429', fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 2 }}>New Arrival</span>}
             {isFeatured && <span style={{ background: '#fdeff2', color: '#e41b4d', fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 2 }}>Top Rated</span>}
           </div>
 

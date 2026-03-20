@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema(
     tags: [String],
     featured: { type: Boolean, default: false },
     isBestSeller: { type: Boolean, default: false },
-    isNew: { type: Boolean, default: true },
+    isNewProduct: { type: Boolean, default: true },
     ratings: { type: Number, default: 0, min: 0, max: 5 },
     numReviews: { type: Number, default: 0 },
     vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

@@ -7,9 +7,7 @@ const Category = require('../models/Category');
 const getProducts = asyncHandler(async (req, res) => {
   const { keyword, category, minPrice, maxPrice, rating, brand, inStock, sort, page = 1, limit = 12, featured } = req.query;
 
-  const query = {}; // Temporarily remove isActive filter for testing
-  console.log('🔍 DEBUG: getProducts query:', JSON.stringify(req.query));
-  console.log('🔍 DEBUG: mongo query:', JSON.stringify(query));
+  const query = { isActive: true };
 
   // Text search
   if (keyword) {

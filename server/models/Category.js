@@ -31,7 +31,6 @@ categorySchema.virtual('children', {
   foreignField: 'parent',
 });
 
-categorySchema.index({ slug: 1 });
 categorySchema.index({ parent: 1 });
 
 module.exports = mongoose.model('Category', categorySchema);

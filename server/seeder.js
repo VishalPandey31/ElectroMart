@@ -138,7 +138,7 @@ function makeProducts(catSlug, catId) {
         isActive: true,
         ratings: parseFloat((4.2 + (i % 8) * 0.1).toFixed(1)),
         numReviews: 24 + i,
-        isNew: i === 0,
+        isNewProduct: i === 0,
         featured: i === 0,
       });
     }
